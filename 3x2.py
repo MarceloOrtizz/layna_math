@@ -64,9 +64,14 @@ def generar_cuentas_pdf(nombre_archivo, nombre_archivo_resultados, cantidad_cuen
 
     # Escribir los resultados en el lienzo de los resultados
     y_resultados = height - 50  # Posición vertical inicial para los resultados
+    c_resultados.setFont("Helvetica-Bold", 16)
     for i, resultado in enumerate(resultados, start=1):
         num1, num2 = cuentas[i-1]
-        c_resultados.drawString(50, y_resultados - i * 20, f"Resultado {i}: {num1} x {num2} = {resultado}")
+        fila = (i - 1) // 4  # Calcular el número de fila actual (comenzando desde 0)
+        x = 50
+        y = y_resultados - (i * 20) - (fila * 20)  # Ajustar la posición vertical
+        c_resultados.drawString(x, y, f"Resultado {i}: {num1} x {num2} = {resultado}")
+
 
     # Guardar el PDF de los resultados
     c_resultados.save()
